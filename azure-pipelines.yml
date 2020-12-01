@@ -4,22 +4,18 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- '*'
+- main
 
 pool:
-  vmImage: 'ubuntu-18.04'
-  demands:
-  - npm
+  vmImage: 'windows-latest'
 
 variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Use .NET Core SDK 3.1.300'
-  inputs:
-    packageType: sdk
-    version: 3.1.300
+- task: NuGetToolInstaller@1
 
 - task: Npm@1
   displayName: 'Run npm install'
